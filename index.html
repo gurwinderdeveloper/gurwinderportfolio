@@ -5,52 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gurwinder Singh - Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #fdfbf7; /* Warm Neutral - Light Cream */
+            background-color: #fdfbf7; /* Light Cream */
             color: #374151; /* Dark Gray for text */
+            scroll-behavior: smooth;
         }
         .nav-link {
-            transition: color 0.3s ease;
+            @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-[#CCFBF1] hover:text-[#0F766E] transition-colors;
         }
-        .nav-link:hover, .nav-link.active {
-            color: #14B8A6; /* Subtle Teal Accent */
+        .nav-link.active {
+            @apply bg-[#14B8A6] text-white;
         }
         .section-title {
-            color: #0F766E; /* Darker Teal for titles */
-            border-bottom: 2px solid #CCFBF1; /* Lighter Teal for underline */
-            padding-bottom: 0.5rem;
+            @apply text-3xl font-bold text-[#0F766E] mb-3 border-b-2 border-[#A7F3D0] pb-2;
+        }
+        .subsection-title {
+            @apply text-xl font-semibold text-[#14B8A6] mb-1;
         }
         .card {
-            background-color: #ffffff;
-            border: 1px solid #e5e7eb; /* Light gray border */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .tag {
-            background-color: #CCFBF1; /* Lighter Teal */
-            color: #0F766E; /* Darker Teal */
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer; /* Indicate clickability */
-            transition: background-color 0.2s ease;
-        }
-        .tag:hover {
-            background-color: #A7F3D0; /* Slightly darker teal on hover */
+            @apply bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300;
         }
         .contact-icon {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.25rem; /* 20px */
+            height: 1.25rem; /* 20px */
             display: inline-block;
             vertical-align: middle;
-            margin-right: 0.5rem;
+            margin-right: 0.5rem; /* 8px */
+        }
+        .hero-bg {
+            background-color: #0F766E; /* Darker Teal */
+            background-image: linear-gradient(to bottom right, #0F766E, #14B8A6);
+        }
+        .tag {
+            @apply inline-block bg-[#CCFBF1] text-[#0F766E] text-xs font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded-full;
         }
         /* Custom scrollbar for a cleaner look - optional */
         ::-webkit-scrollbar {
@@ -66,399 +56,318 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #0F766E;
         }
-        html {
-            scroll-behavior: smooth;
+        /* Ensure content is not hidden behind fixed navbar */
+        section {
+            scroll-margin-top: 70px; /* Adjust based on navbar height */
         }
-        .ai-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            background-color: #14B8A6;
-            color: white;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            transition: background-color 0.2s ease;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        .ai-button:hover {
-            background-color: #0F766E;
-        }
-        .ai-loading {
-            color: #14B8A6;
-            font-style: italic;
-            margin-top: 1rem;
-        }
-        .ai-response {
-            background-color: #F0FDF4; /* Light green background for AI response */
-            border-left: 4px solid #34D399; /* Green border */
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.5rem;
-            color: #10B981; /* Darker green text */
+        header#hero {
+             scroll-margin-top: 70px;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <nav id="navbar" class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-20 top-0">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-[#0F766E]">Gurwinder Singh</a>
-            <div class="hidden md:flex space-x-4">
-                <a href="#summary" class="nav-link text-gray-700">Summary</a>
-                <a href="#skills" class="nav-link text-gray-700">Skills</a>
-                <a href="#experience" class="nav-link text-gray-700">Experience</a>
-                <a href="#education" class="nav-link text-gray-700">Education</a>
-                <a href="#projects" class="nav-link text-gray-700">Projects</a>
-                <a href="#certifications" class="nav-link text-gray-700">Certifications</a>
-                <a href="#contact" class="nav-link text-gray-700">Contact</a>
-            </div>
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+    <nav id="navbar" class="bg-white/90 backdrop-blur-md shadow-md fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#hero" class="text-2xl font-bold text-[#0F766E]">Gurwinder Singh</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#summary" class="nav-link">Summary</a>
+                        <a href="#skills" class="nav-link">Skills</a>
+                        <a href="#experience" class="nav-link">Experience</a>
+                        <a href="#projects" class="nav-link">Projects</a>
+                        <a href="#education" class="nav-link">Education</a>
+                        <a href="#certifications" class="nav-link">Certifications</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-button" type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-white hover:bg-[#14B8A6] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
-            <a href="#summary" class="block nav-link text-gray-700 px-4 py-2">Summary</a>
-            <a href="#skills" class="block nav-link text-gray-700 px-4 py-2">Skills</a>
-            <a href="#experience" class="block nav-link text-gray-700 px-4 py-2">Experience</a>
-            <a href="#education" class="block nav-link text-gray-700 px-4 py-2">Education</a>
-            <a href="#projects" class="block nav-link text-gray-700 px-4 py-2">Projects</a>
-            <a href="#certifications" class="block nav-link text-gray-700 px-4 py-2">Certifications</a>
-            <a href="#contact" class="block nav-link text-gray-700 px-4 py-2">Contact</a>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#summary" class="nav-link block">Summary</a>
+                <a href="#skills" class="nav-link block">Skills</a>
+                <a href="#experience" class="nav-link block">Experience</a>
+                <a href="#projects" class="nav-link block">Projects</a>
+                <a href="#education" class="nav-link block">Education</a>
+                <a href="#certifications" class="nav-link block">Certifications</a>
+                <a href="#contact" class="nav-link block">Contact</a>
+            </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-6 pt-24 pb-12">
-
-        <header id="hero" class="text-center mb-16 pt-8">
-            <h1 class="text-5xl font-bold text-[#0F766E] mb-3">GURWINDER SINGH</h1>
-            <p class="text-xl text-gray-600 mb-1">Patiala, Punjab, India</p>
-            <div class="flex justify-center flex-wrap gap-x-4 gap-y-2 text-gray-600">
-                <a href="mailto:guri.eng00@gmail.com" class="hover:text-[#14B8A6] transition-colors flex items-center">
+    <header id="hero" class="hero-bg text-white pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">GURWINDER SINGH</h1>
+            <p class="mt-3 text-lg sm:text-xl md:text-2xl text-gray-200">Computer Science Graduate | Web Developer</p>
+            <p class="mt-1 text-md sm:text-lg text-gray-300">Patiala, Punjab, India</p>
+            <div class="mt-6 flex justify-center flex-wrap gap-x-6 gap-y-3">
+                <a href="mailto:guri.eng00@gmail.com" class="text-gray-200 hover:text-white transition-colors duration-300 flex items-center">
                     <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                     guri.eng00@gmail.com
                 </a>
-                <span class="text-gray-400 hidden sm:inline">|</span>
-                <a href="tel:+919876961856" class="hover:text-[#14B8A6] transition-colors flex items-center">
+                <a href="tel:+919876961856" class="text-gray-200 hover:text-white transition-colors duration-300 flex items-center">
                     <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
                     +91 98769-61856
                 </a>
-                <span class="text-gray-400 hidden sm:inline">|</span>
-                <a href="https://github.com/gurwinderdeveloper" target="_blank" rel="noopener noreferrer" class="hover:text-[#14B8A6] transition-colors flex items-center">
-                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    github.com/gurwinderdeveloper
-                </a>
-                <span class="text-gray-400 hidden sm:inline">|</span>
-
-                <a href="https://linkedin.com/in/gurwinder786" target="_blank" rel="noopener noreferrer" class="hover:text-[#14B8A6] transition-colors flex items-center">
-                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    linkedin.com/in/gurwinder786
-                </a>
-                
             </div>
-        </header>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="https://github.com/gurwinderdeveloper" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors duration-300">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.852 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://linkedin.com/in/gurwinder786" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors duration-300">
+                    <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
 
-        <section id="summary" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Professional Summary</h2>
-            <p class="text-lg text-gray-700 leading-relaxed">
-                This section introduces Gurwinder Singh, highlighting his status as a detail-oriented and enthusiastic Computer Science graduate. It emphasizes his strong foundation in web development, object-oriented programming, and database management. The summary also points out his proficiency in key technologies like HTML, CSS, JavaScript, Python, and SQL, backed by practical project and internship experience. His problem-solving abilities and communication skills are mentioned as key assets for contributing to tech teams.
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        <section id="summary">
+            <h2 class="section-title">Professional Summary</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                This section provides a concise overview of Gurwinder Singh's profile. It highlights his key attributes as a Computer Science graduate, his core technical strengths in web development and programming, and his soft skills that make him a valuable team member. It aims to give a quick yet comprehensive understanding of his capabilities and aspirations.
             </p>
-            <p id="original-summary-text" class="text-lg text-gray-700 leading-relaxed mt-4 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                Detail-oriented and enthusiastic Computer Science graduate with a strong foundation in responsive web design, object-oriented programming, REST API integration, and database management. Skilled in HTML, CSS, JavaScript (ES6), Python, and SQL, with hands-on project and internship experience. Familiar with the software development lifecycle (SDLC), version control using Git, and Agile development practices. Strong problem-solving, collaboration, and communication skills.
-            </p>
-            <button id="elaborate-summary-button" class="ai-button">
-                ✨ Elaborate on Summary
-            </button>
-            <div id="summary-elaboration-loading" class="ai-loading hidden">Generating elaboration...</div>
-            <div id="summary-elaboration-response" class="ai-response hidden"></div>
+            <div class="mt-6 card">
+                <p class="text-gray-700 leading-relaxed">
+                    Detail-oriented and enthusiastic Computer Science graduate with a strong foundation in responsive web design, object-oriented programming, REST API integration, and database management. Proven ability in HTML, CSS, JavaScript (ES6), Core Java, and SQL, demonstrated through hands-on projects and internship experience. Familiar with the software development lifecycle (SDLC), version control (Git), and Agile methodologies. Possesses strong problem-solving, collaboration, and communication skills.
+                </p>
+            </div>
         </section>
 
-        <section id="skills" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Technical Skills</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                This section outlines Gurwinder's technical competencies. It's categorized for clarity, covering programming languages, web technologies, development tools, database knowledge, and essential soft skills. Users can quickly scan this area to assess his technical fit for various roles. Click on any skill tag to get an AI-powered insight into its importance!
+        <section id="skills">
+            <h2 class="section-title">Technical Skills</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                Explore Gurwinder's diverse technical skill set. This area is categorized to clearly present his proficiency in various programming languages, web technologies, development tools, database management, and crucial soft skills. It offers a snapshot of the tools and competencies he brings to the table.
             </p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-3">Languages</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag" data-skill="Core Java">Core Java</span>
-                        <span class="tag" data-skill="JavaScript (ES6)">JavaScript (ES6)</span>
-                        <span class="tag" data-skill="SQL">SQL</span>
-                        <span class="tag" data-skill="Python">Python</span>
+            <div class="mt-6 card">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div>
+                        <h3 class="subsection-title">Languages</h3>
+                        <p class="text-gray-600">Core Java, JavaScript (ES6), SQL, Python</p>
                     </div>
-                </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-3">Web Technologies</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag" data-skill="HTML5">HTML5</span>
-                        <span class="tag" data-skill="CSS3">CSS3</span>
-                        <span class="tag" data-skill="JavaScript (DOM, ES6)">JavaScript (DOM, ES6)</span>
-                        <span class="tag" data-skill="React (Basics)">React (Basics)</span>
+                    <div>
+                        <h3 class="subsection-title">Web Technologies</h3>
+                        <p class="text-gray-600">HTML5, CSS3, JavaScript (DOM, ES6), React (Basics)</p>
                     </div>
-                </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-3">Tools & Platforms</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag" data-skill="Git">Git</span>
-                        <span class="tag" data-skill="GitHub">GitHub</span>
-                        <span class="tag" data-skill="VS Code">VS Code</span>
+                    <div>
+                        <h3 class="subsection-title">Tools & Platforms</h3>
+                        <p class="text-gray-600">Git, GitHub, VS Code</p>
                     </div>
-                </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-3">Database</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag" data-skill="MySQL (Basics)">MySQL (Basics)</span>
+                    <div>
+                        <h3 class="subsection-title">Database</h3>
+                        <p class="text-gray-600">MySQL (Basics)</p>
                     </div>
-                </div>
-                <div class="card p-6 rounded-lg md:col-span-2">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-3">Soft Skills</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag" data-skill="Problem Solving">Problem Solving</span>
-                        <span class="tag" data-skill="Team Collaboration">Team Collaboration</span>
-                        <span class="tag" data-skill="Adaptability">Adaptability</span>
-                        <span class="tag" data-skill="Effective Communication">Effective Communication</span>
+                    <div class="md:col-span-2">
+                        <h3 class="subsection-title">Soft Skills</h3>
+                        <p class="text-gray-600">Problem Solving, Team Collaboration, Adaptability, Effective Communication</p>
                     </div>
                 </div>
             </div>
-            <div id="skill-insight-loading" class="ai-loading hidden mt-6">Generating skill insight...</div>
-            <div id="skill-insight-response" class="ai-response hidden mt-6"></div>
         </section>
 
-        <section id="experience" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Internship Experience</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Here, Gurwinder's practical work experience through internships is detailed. Each internship includes the company name, his role, the duration, and key responsibilities or achievements. This section provides insight into his hands-on skills and ability to work in a professional environment.
+        <section id="experience">
+            <h2 class="section-title">Internship Experience</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                This section details Gurwinder's hands-on professional experience gained through internships. Each entry outlines his role, the company, duration, and key contributions, showcasing his ability to apply academic knowledge in real-world development scenarios.
             </p>
-            <div class="space-y-8">
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#0F766E]">Full Stack Development Intern</h3>
-                    <p class="text-md text-gray-600 mb-1">Excellence Technology, Mohali | Jan 2024 – Jun 2024</p>
-                    <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
+            <div class="mt-6 space-y-8">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-800">Full Stack Development Intern</h3>
+                    <p class="text-md text-[#14B8A6] font-medium">Excellence Technology, Mohali</p>
+                    <p class="text-sm text-gray-500 mb-2">Jan 2024 – Jun 2024</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
                         <li>Developed responsive UI components using HTML, CSS, and JavaScript (ES6).</li>
                         <li>Collaborated with senior developers in an Agile environment to build and debug front-end features.</li>
-                        <li>Gained experience with Git version control and backend API integration.</li>
+                        <li>Gained practical experience with Git version control and backend API integration.</li>
                     </ul>
                 </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#0F766E]">Core Java Programming Intern</h3>
-                    <p class="text-md text-gray-600 mb-1">Solitaire Infosys, Patiala | Jul 2022 – Sep 2022</p>
-                    <ul class="list-disc list-inside text-gray-700 mt-2 space-y-1">
-                        <li>Built and optimized Java-based tools as part of the software development lifecycle (SDLC).</li>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-gray-800">Core Java Programming Intern</h3>
+                    <p class="text-md text-[#14B8A6] font-medium">Solitaire Infosys, Patiala</p>
+                    <p class="text-sm text-gray-500 mb-2">Jul 2022 – Sep 2022</p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4">
+                        <li>Built and optimized Java-based tools, contributing to the software development lifecycle (SDLC).</li>
                         <li>Assisted with debugging, logic structuring, and documentation of reusable components.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section id="education" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Education</h2>
-             <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                This part of the resume outlines Gurwinder's academic qualifications. It includes his Bachelor's degree in Computer Science and Engineering, specifying the university, graduation period, and CGPA. His 12th-grade details are also provided for a complete educational background.
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                Discover the practical projects Gurwinder has undertaken. This area highlights his ability to apply technical skills to develop functional applications, from interactive web tools to games and API integrations, demonstrating his problem-solving approach and development capabilities.
             </p>
-            <div class="space-y-6">
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#0F766E]">B.Tech in Computer Science and Engineering</h3>
-                    <p class="text-md text-gray-600">Punjabi University, Patiala | 2020 – 2024</p>
-                    <p class="text-gray-700">CGPA: 7.77</p>
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Sortable & Filterable Table Web App</h3>
+                    <p class="text-sm text-gray-500 mb-2">(HTML, CSS, JavaScript)</p>
+                    <p class="text-gray-700">Created an interactive table with sort/filter features using DOM manipulation and event handling.</p>
                 </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#0F766E]">12th Grade (Non-Medical)</h3>
-                    <p class="text-md text-gray-600">Meritorious Sr. Secondary School, Mohali | 2019 – 2020</p>
-                    <p class="text-gray-700">Score: 91%</p>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Rock, Paper, Scissors Game</h3>
+                    <p class="text-sm text-gray-500 mb-2">(HTML, CSS, JavaScript)</p>
+                    <p class="text-gray-700">Developed a browser-based game simulating human vs computer gameplay logic using ES6 JavaScript.</p>
                 </div>
-                 <div class="card p-6 rounded-lg">
-                    <h3 class="text-2xl font-semibold text-[#0F766E]">10th Grade</h3>
-                    <p class="text-md text-gray-600">Govt. High School, Gurhi Sanghar | 2018 – 2019</p>
-                    <p class="text-gray-700">Score: 77%</p>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Frontend E-commerce Project</h3>
+                    <p class="text-sm text-gray-500 mb-2">(HTML, CSS, JavaScript)</p>
+                    <p class="text-gray-700">Designed a responsive user interface for browsing, cart handling, and checkout using web technologies.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Weather App using API</h3>
+                    <p class="text-sm text-gray-500 mb-2">(JavaScript, OpenWeather API)</p>
+                    <p class="text-gray-700">Built a responsive application integrating REST API to fetch real-time weather data.</p>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Projects</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Gurwinder's personal or academic projects are showcased here. Each project is described with its title and a brief overview of its functionality and the technologies used. This demonstrates his ability to apply his skills to create tangible applications.
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                This section outlines Gurwinder's academic background, forming the foundation of his technical knowledge. It includes his degree in Computer Science and Engineering, along with his performance in higher secondary and secondary schooling.
             </p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-2">Sortable & Filterable Table Web App</h3>
-                    <p class="text-gray-700 mb-2">Created an interactive table with sort/filter features using DOM manipulation and event handling.</p>
-                    <p class="text-gray-700">Technologies: HTML, CSS, JavaScript</p>
+            <div class="mt-6 space-y-6">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800">B.Tech in Computer Science and Engineering</h3>
+                    <p class="text-md text-[#14B8A6] font-medium">Punjabi University, Patiala</p>
+                    <p class="text-sm text-gray-500">CGPA: 7.77 (2020 – 2024)</p>
                 </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-2">Rock, Paper, Scissors Game</h3>
-                    <p class="text-gray-700 mb-2">Developed a browser-based game simulating human vs computer gameplay logic using ES6 JavaScript.</p>
-                    <p class="text-gray-700">Technologies: HTML, CSS, JavaScript</p>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800">12th Grade (Non-Medical)</h3>
+                    <p class="text-md text-[#14B8A6] font-medium">Meritorious Sr. Secondary School, Mohali</p>
+                    <p class="text-sm text-gray-500">91% (2019 – 2020)</p>
                 </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-2">Frontend E-commerce Project</h3>
-                    <p class="text-gray-700 mb-2">Designed a responsive user interface for browsing, cart handling, and checkout.</p>
-                    <p class="text-gray-700">Technologies: HTML, CSS, JavaScript</p>
-                </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold text-[#0F766E] mb-2">Weather App using API</h3>
-                    <p class="text-gray-700 mb-2">Built a responsive app integrating REST API to fetch real-time weather data.</p>
-                    <p class="text-gray-700">Technologies: JavaScript, OpenWeather API</p>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-gray-800">10th Grade</h3>
+                    <p class="text-md text-[#14B8A6] font-medium">Govt. High School, Gurhi Sanghar</p>
+                    <p class="text-sm text-gray-500">77% (2018 – 2019)</p>
                 </div>
             </div>
         </section>
 
-        <section id="certifications" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Certifications</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                This section lists the certifications Gurwinder has earned, further validating his skills in specific areas.
+        <section id="certifications">
+            <h2 class="section-title">Certifications</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                Listed here are the certifications Gurwinder has achieved, which validate his specialized knowledge and commitment to continuous learning in key areas of software development.
             </p>
-            <div class="card p-6 rounded-lg">
-                <ul class="list-disc list-inside text-gray-700 space-y-2">
+            <div class="mt-6 card">
+                <ul class="list-disc list-inside text-gray-700 space-y-2 pl-4">
                     <li>Core Java Programming – Solitaire Infosys (2020)</li>
                     <li>Web Development (HTML, CSS, JavaScript, React) – Excellence Technology (2024)</li>
                     <li>SQL Fundamentals – Qspiders, Chandigarh (2024)</li>
                 </ul>
             </div>
         </section>
-        
-        <section id="additional-info" class="mb-12 scroll-mt-20">
-            <h2 class="text-3xl font-semibold mb-6 section-title">Additional Information</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                Provides supplementary details such as language proficiency and personal interests. This gives a more rounded view of Gurwinder as an individual.
+
+        <section id="additional-info">
+            <h2 class="section-title">Additional Information</h2>
+            <p class="mt-4 text-lg text-gray-700 leading-relaxed">
+                This final section provides a glimpse into Gurwinder's linguistic abilities and personal interests, offering a more well-rounded perspective of him as an individual beyond his technical profile.
             </p>
-            <div class="card p-6 rounded-lg">
-                <div class="grid md:grid-cols-2 gap-4">
+            <div class="mt-6 card">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="text-lg font-medium text-[#0F766E] mb-1">Languages:</h4>
-                        <p class="text-gray-700">English (Intermediate), Hindi (Intermediate), Punjabi (Native)</p>
+                        <h3 class="subsection-title">Languages</h3>
+                        <p class="text-gray-600">English (Intermediate), Hindi (Intermediate), Punjabi (Native)</p>
                     </div>
                     <div>
-                        <h4 class="text-lg font-medium text-[#0F766E] mb-1">Interests:</h4>
-                        <p class="text-gray-700">Technology blogs, coding challenges (LeetCode, HackerRank), Typing practice</p>
+                        <h3 class="subsection-title">Interests</h3>
+                        <p class="text-gray-600">Technology blogs, coding challenges (LeetCode, HackerRank), Typing practice</p>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <footer id="contact" class="bg-gray-800 text-white py-12 scroll-mt-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-semibold mb-6">Get In Touch</h2>
-            <p class="text-gray-300 mb-2">Feel free to reach out for any opportunities or collaborations.</p>
-            <div class="space-y-2 mb-6">
-                <p><a href="mailto:guri.eng00@gmail.com" class="hover:text-[#14B8A6] transition-colors">guri.eng00@gmail.com</a></p>
-                <p><a href="tel:+919876961856" class="hover:text-[#14B8A6] transition-colors">+91 98769-61856</a></p>
-                <p><a href="https://linkedin.com/in/gurwinder786" target="_blank" rel="noopener noreferrer" class="hover:text-[#14B8A6] transition-colors">linkedin.com/in/gurwinder786</a></p>
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-semibold mb-4">Get In Touch</h2>
+            <p class="text-gray-300 mb-6">Feel free to reach out for opportunities or collaborations.</p>
+            <div class="space-y-3 mb-8">
+                <p><a href="mailto:guri.eng00@gmail.com" class="text-gray-300 hover:text-[#14B8A6] transition-colors duration-300 flex items-center justify-center">
+                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                    guri.eng00@gmail.com</a></p>
+                <p><a href="tel:+919876961856" class="text-gray-300 hover:text-[#14B8A6] transition-colors duration-300 flex items-center justify-center">
+                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                    +91 98769-61856</a></p>
+                <p><a href="https://linkedin.com/in/gurwinder786" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-[#14B8A6] transition-colors duration-300 flex items-center justify-center">
+                    <svg class="contact-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    linkedin.com/in/gurwinder786</a></p>
             </div>
             <p class="text-gray-400 text-sm">&copy; <span id="currentYear"></span> Gurwinder Singh. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle functionality
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const openIcon = mobileMenuButton.querySelector('svg:nth-child(1)');
+        const closeIcon = mobileMenuButton.querySelector('svg:nth-child(2)');
+
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            openIcon.classList.toggle('block');
+            closeIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('block');
         });
 
-        // Close mobile menu when a link is clicked
-        const mobileNavLinks = mobileMenu.querySelectorAll('a');
-        mobileNavLinks.forEach(link => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+                // For mobile menu, close it after click
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    openIcon.classList.remove('hidden');
+                    openIcon.classList.add('block');
+                    closeIcon.classList.remove('block');
+                    closeIcon.classList.add('hidden');
+                }
             });
         });
         
-        // Set current year in the footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Highlight active navigation link on scroll
+        // Active link highlighting on scroll
         const sections = document.querySelectorAll('section[id], header[id]');
-        const navLinks = document.querySelectorAll('#navbar a.nav-link, #mobile-menu a.nav-link');
         const navbar = document.getElementById('navbar');
-        const navbarHeight = navbar.offsetHeight;
+        let navbarHeight = navbar.offsetHeight; // Initial height
 
+        // Recalculate navbar height on resize, useful if its height changes
+        window.addEventListener('resize', () => {
+            navbarHeight = navbar.offsetHeight;
+        });
+        
         window.addEventListener('scroll', () => {
-            let current = '';
+            let currentSectionId = '';
             sections.forEach(section => {
-                // Adjust sectionTop for fixed navbar height
-                const sectionTop = section.offsetTop - navbarHeight - 50; 
+                const sectionTop = section.offsetTop - navbarHeight - 20; // Adjusted offset
                 if (pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
+                    currentSectionId = section.getAttribute('id');
                 }
             });
 
             navLinks.forEach(link => {
-                link.classList.remove('active', 'font-semibold', 'text-[#14B8A6]');
-                if (link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active', 'font-semibold', 'text-[#14B8A6]');
-                } else {
-                    // Ensure non-active links revert to default color
-                    link.classList.remove('font-semibold', 'text-[#14B8A6]');
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === currentSectionId) {
+                    link.classList.add('active');
                 }
-            });
-        });
-
-        // Function to call Gemini API for text generation
-        async function callGeminiAPI(prompt, loadingElement, responseElement) {
-            loadingElement.classList.remove('hidden');
-            responseElement.classList.add('hidden');
-            responseElement.textContent = ''; // Clear previous response
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-            const payload = { contents: chatHistory };
-            const apiKey = ""; // API key is provided by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    responseElement.textContent = text;
-                    responseElement.classList.remove('hidden');
-                } else {
-                    responseElement.textContent = 'Error: Could not generate response. Please try again.';
-                    responseElement.classList.remove('hidden');
-                }
-            } catch (error) {
-                responseElement.textContent = 'Error calling API: ' + error.message;
-                responseElement.classList.remove('hidden');
-            } finally {
-                loadingElement.classList.add('hidden');
-            }
-        }
-
-        // Event listener for "Elaborate on Summary" button
-        const elaborateSummaryButton = document.getElementById('elaborate-summary-button');
-        const originalSummaryText = document.getElementById('original-summary-text');
-        const summaryElaborationLoading = document.getElementById('summary-elaboration-loading');
-        const summaryElaborationResponse = document.getElementById('summary-elaboration-response');
-
-        elaborateSummaryButton.addEventListener('click', () => {
-            const prompt = `Elaborate on the following professional summary, making it more detailed and impactful, focusing on key achievements and potential contributions to a tech team. Keep it concise, around 100-150 words. Do not use bullet points, just a paragraph. Here is the summary: "${originalSummaryText.textContent.trim()}"`;
-            callGeminiAPI(prompt, summaryElaborationLoading, summaryElaborationResponse);
-        });
-
-        // Event listeners for skill tags
-        const skillTags = document.querySelectorAll('.tag');
-        const skillInsightLoading = document.getElementById('skill-insight-loading');
-        const skillInsightResponse = document.getElementById('skill-insight-response');
-
-        skillTags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                const skillName = tag.dataset.skill;
-                const prompt = `Explain the importance of "${skillName}" in a professional tech environment, especially for a computer science graduate. Keep the explanation brief, around 50-70 words.`;
-                callGeminiAPI(prompt, skillInsightLoading, skillInsightResponse);
             });
         });
     </script>
